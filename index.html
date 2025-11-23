@@ -4,20 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jogo da Memória Matemática</title>
-    <link rel="stylesheet" href="/assets/css/style.css"
+    <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
+    <!-- Modal para inserir nomes -->
+    <div id="nameModal" class="modal">
+        <div class="modal-content">
+            <h2>Digite os nomes dos jogadores</h2>
+            <div class="input-group">
+                <label for="player1Name">Jogador 1:</label>
+                <input type="text" id="player1Name" placeholder="Nome do Jogador 1" maxlength="15">
+            </div>
+            <div class="input-group">
+                <label for="player2Name">Jogador 2:</label>
+                <input type="text" id="player2Name" placeholder="Nome do Jogador 2" maxlength="15">
+            </div>
+            <button id="startGameBtn">Iniciar Jogo</button>
+        </div>
+    </div>
+
     <div class="container">
         <h1>Jogo da Memória Matemática</h1>
         
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color legend-question"></div>
+                <span>Perguntas</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color legend-answer"></div>
+                <span>Respostas</span>
+            </div>
+        </div>
+        
         <div class="game-info">
             <div class="player active" id="player1">
-                <h2>Jogador 1</h2>
+                <h2 id="player1Display">Jogador 1</h2>
                 <div class="player-score">0</div>
+                <div class="player-history" id="player1History"></div>
             </div>
             <div class="player" id="player2">
-                <h2>Jogador 2</h2>
+                <h2 id="player2Display">Jogador 2</h2>
                 <div class="player-score">0</div>
+                <div class="player-history" id="player2History"></div>
             </div>
         </div>
         
@@ -28,7 +57,8 @@
         <div class="message" id="message">Jogador 1, é sua vez!</div>
         
         <div class="controls">
-            <button id="restartBtn">Reiniciar Jogo</button>
+            <button id="restartBtn">Novo Jogo</button>
+            <button id="changeNamesBtn">Alterar Nomes</button>
             <button id="rulesBtn">Regras</button>
         </div>
     </div>

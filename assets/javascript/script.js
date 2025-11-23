@@ -1,10 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Elementos do DOM
+    const nameModal = document.getElementById('nameModal');
+    const player1NameInput = document.getElementById('player1Name');
+    const player2NameInput = document.getElementById('player2Name');
+    const startGameBtn = document.getElementById('startGameBtn');
+    const changeNamesBtn = document.getElementById('changeNamesBtn');
     const gameBoard = document.getElementById('gameBoard');
     const player1Element = document.getElementById('player1');
     const player2Element = document.getElementById('player2');
+    const player1Display = document.getElementById('player1Display');
+    const player2Display = document.getElementById('player2Display');
     const player1ScoreElement = player1Element.querySelector('.player-score');
     const player2ScoreElement = player2Element.querySelector('.player-score');
+    const player1HistoryElement = document.getElementById('player1History');
+    const player2HistoryElement = document.getElementById('player2History');
     const messageElement = document.getElementById('message');
     const restartBtn = document.getElementById('restartBtn');
     const rulesBtn = document.getElementById('rulesBtn');
@@ -16,6 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentPlayer = 1;
     let scores = { 1: 0, 2: 0 };
     let gameActive = true;
+    let playerNames = { 1: 'Jogador 1', 2: 'Jogador 2' };
+    let gameHistory = { 1: [], 2: [] };
+    const MAX_HISTORY = 10;
 
     // Perguntas e respostas de matemática
     const mathQuestions = [
@@ -41,6 +53,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Inicializar o jogo
     function initGame() {
+        // Mostrar modal para inserir nomes
+        showNameModal();
+    }
+
+    // Mostrar modal de nomes
+    function showNameModal() {
+        nameModal.style.display = 'flex';
+        player1NameInput.value = playerNames[1];
+        player2NameInput.value = playerNames[2];
+        player1NameInput.focus();
+    }
+
+    // Iniciar jogo com os nomes fornecidos
+    function startGameWithNames() {
+        const name1 = player1NameInput.value.trim() || 'Jogador 1';
+        const name2 = player2NameInput.value.trim() || 'Jogador 2';
+        
+        playerNames[1] = name1;
+        playerNames[2] = name2;
+        
+        player1Display.textContent = name1;
+        player2Display.textContent = name2;
+        
+        nameModal.style.display = 'none';
+        
         // Limpar tabuleiro
         gameBoard.innerHTML = '';
         cards = [];
@@ -55,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
         player2ScoreElement.textContent = '0';
         player1Element.classList.add('active');
         player2Element.classList.remove('active');
-        messageElement.textContent = 'Jogador 1, é sua vez!';
+        messageElement.textContent = `${playerNames[1]}, é sua vez!`;
 
         // Criar pares de cartas
         const cardPairs = [...mathQuestions];
@@ -76,10 +113,67 @@ document.addEventListener('DOMContentLoaded', () => {
         shuffleCards();
     }
 
+    // Adicionar resultado ao histórico
+    function addToHistory(winner) {
+        const now = new Date();
+        const dateStr = now.toLocaleDateString('pt-BR');
+        const timeStr = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+        
+        const result = {
+            date: dateStr,
+            time: timeStr,
+            winner: winner,
+            score1: scores[1],
+            score2: scores[2]
+        };
+        
+        // Adicionar ao histórico de ambos os jogadores
+        gameHistory[1].unshift(result);
+        gameHistory[2].unshift(result);
+        
+        // Manter apenas os últimos MAX_HISTORY jogos
+        if (gameHistory[1].length > MAX_HISTORY) {
+            gameHistory[1].pop();
+            gameHistory[2].pop();
+        }
+        
+        updateHistoryDisplay();
+    }
+
+    // Atualizar exibição do histórico
+    function updateHistoryDisplay() {
+        updatePlayerHistory(1, player1HistoryElement);
+        updatePlayerHistory(2, player2HistoryElement);
+    }
+
+    // Atualizar histórico de um jogador específico
+    function updatePlayerHistory(playerId, historyElement) {
+        historyElement.innerHTML = '';
+        
+        gameHistory[playerId].forEach((game, index) => {
+            const gameElement = document.createElement('div');
+            const opponentId = playerId === 1 ? 2 : 1;
+            const opponentName = playerNames[opponentId];
+            
+            let resultText;
+            if (game.winner === playerId) {
+                resultText = `✅ Vitória ${game.score1}-${game.score2}`;
+            } else if (game.winner === opponentId) {
+                resultText = `❌ Derrota ${game.score1}-${game.score2}`;
+            } else {
+                resultText = `⚡ Empate ${game.score1}-${game.score2}`;
+            }
+            
+            gameElement.textContent = `${game.date} ${resultText}`;
+            gameElement.title = `Jogado em ${game.date} às ${game.time}`;
+            historyElement.appendChild(gameElement);
+        });
+    }
+
     // Criar uma carta
     function createCard(type, content, id) {
         const card = document.createElement('div');
-        card.className = `card ${type}`; // Adiciona classe específica para o tipo
+        card.className = `card ${type}`;
         card.dataset.id = id;
         card.dataset.type = type;
         card.dataset.content = content;
@@ -89,7 +183,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const cardFront = document.createElement('div');
         cardFront.className = 'card-front';
-        // Mostra o conteúdo diretamente na frente (visível)
         cardFront.textContent = type === 'question' ? '?' : 'R';
         
         const cardBack = document.createElement('div');
@@ -107,10 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Embaralhar as cartas no tabuleiro
     function shuffleCards() {
-        // Embaralhar array de cartas
         shuffleArray(cards);
-        
-        // Adicionar cartas ao tabuleiro
         cards.forEach(card => {
             gameBoard.appendChild(card);
         });
@@ -127,16 +217,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Virar uma carta
     function flipCard(card) {
-        // Verificar se o jogo está ativo, se a carta já está virada ou se já temos 2 cartas viradas
         if (!gameActive || card.classList.contains('flipped') || flippedCards.length >= 2) {
             return;
         }
         
-        // Virar a carta
         card.classList.add('flipped');
         flippedCards.push(card);
         
-        // Verificar se temos duas cartas viradas
         if (flippedCards.length === 2) {
             checkForMatch();
         }
@@ -146,64 +233,50 @@ document.addEventListener('DOMContentLoaded', () => {
     function checkForMatch() {
         const [card1, card2] = flippedCards;
         
-        // Verificar se temos uma pergunta e uma resposta
         const hasQuestion = card1.classList.contains('question') || card2.classList.contains('question');
         const hasAnswer = card1.classList.contains('answer') || card2.classList.contains('answer');
         
         if (!hasQuestion || !hasAnswer) {
-            // Não é um par válido (duas perguntas ou duas respostas)
             setTimeout(() => {
                 card1.classList.remove('flipped');
                 card2.classList.remove('flipped');
                 flippedCards = [];
                 switchPlayer();
-                messageElement.textContent = `Par inválido! Jogador ${currentPlayer}, é sua vez!`;
+                messageElement.textContent = `Par inválido! ${playerNames[currentPlayer]}, é sua vez!`;
             }, 1000);
             return;
         }
         
-        // Encontrar qual é a pergunta e qual é a resposta
         const questionCard = card1.classList.contains('question') ? card1 : card2;
         const answerCard = card1.classList.contains('answer') ? card1 : card2;
         
         const questionContent = questionCard.dataset.content;
         const answerContent = answerCard.dataset.content;
         
-        // Verificar se é um par válido
         const question = mathQuestions.find(q => q.question === questionContent);
         
         if (question && question.answer === answerContent) {
-            // Par encontrado!
             setTimeout(() => {
                 questionCard.classList.add('match');
                 answerCard.classList.add('match');
                 
-                // Atualizar pontuação
                 scores[currentPlayer]++;
                 updateScores();
                 
-                // Limpar cartas viradas
                 flippedCards = [];
                 
-                // Verificar se o jogo terminou
                 matchedPairs++;
                 if (matchedPairs === mathQuestions.length) {
                     endGame();
                 } else {
-                    // Manter a vez do mesmo jogador
-                    messageElement.textContent = `Par encontrado! Jogador ${currentPlayer}, continue jogando!`;
+                    messageElement.textContent = `Par encontrado! ${playerNames[currentPlayer]}, continue jogando!`;
                 }
             }, 500);
         } else {
-            // Par não encontrado
             setTimeout(() => {
                 card1.classList.remove('flipped');
                 card2.classList.remove('flipped');
-                
-                // Limpar cartas viradas
                 flippedCards = [];
-                
-                // Trocar jogador
                 switchPlayer();
             }, 1000);
         }
@@ -213,11 +286,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function switchPlayer() {
         currentPlayer = currentPlayer === 1 ? 2 : 1;
         
-        // Atualizar interface
         player1Element.classList.toggle('active');
         player2Element.classList.toggle('active');
         
-        messageElement.textContent = `Jogador ${currentPlayer}, é sua vez!`;
+        messageElement.textContent = `${playerNames[currentPlayer]}, é sua vez!`;
     }
 
     // Atualizar pontuações na interface
@@ -230,16 +302,24 @@ document.addEventListener('DOMContentLoaded', () => {
     function endGame() {
         gameActive = false;
         
+        let winner;
         let winnerMessage;
+        
         if (scores[1] > scores[2]) {
-            winnerMessage = "Jogador 1 venceu!";
+            winner = 1;
+            winnerMessage = `${playerNames[1]} venceu!`;
         } else if (scores[2] > scores[1]) {
-            winnerMessage = "Jogador 2 venceu!";
+            winner = 2;
+            winnerMessage = `${playerNames[2]} venceu!`;
         } else {
+            winner = 0; // Empate
             winnerMessage = "Empate!";
         }
         
         messageElement.textContent = `Fim de jogo! ${winnerMessage}`;
+        
+        // Adicionar ao histórico
+        addToHistory(winner);
     }
 
     // Mostrar regras do jogo
@@ -254,16 +334,33 @@ document.addEventListener('DOMContentLoaded', () => {
 6. O jogo termina quando todos os pares forem encontrados.
 7. Vence o jogador com mais pontos.
 
-CORES DAS CARTAS:
-• Vermelho: Perguntas (mostra "?")
-• Verde: Respostas (mostra "R")
+HISTÓRICO:
+• São mantidos os últimos 10 jogos
+• ✅ indica vitória
+• ❌ indica derrota  
+• ⚡ indica empate
 
 BOA SORTE!`);
     }
 
     // Event Listeners
-    restartBtn.addEventListener('click', initGame);
+    startGameBtn.addEventListener('click', startGameWithNames);
+    restartBtn.addEventListener('click', startGameWithNames);
+    changeNamesBtn.addEventListener('click', showNameModal);
     rulesBtn.addEventListener('click', showRules);
+
+    // Permitir iniciar com Enter
+    player1NameInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            player2NameInput.focus();
+        }
+    });
+
+    player2NameInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            startGameWithNames();
+        }
+    });
 
     // Iniciar o jogo
     initGame();
