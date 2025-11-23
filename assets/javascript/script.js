@@ -89,7 +89,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const cardFront = document.createElement('div');
         cardFront.className = 'card-front';
-        cardFront.textContent = '?';
+        // Mostra o conteúdo diretamente na frente (visível)
+        cardFront.textContent = type === 'question' ? '?' : '=';
         
         const cardBack = document.createElement('div');
         cardBack.className = 'card-back';
@@ -254,8 +255,8 @@ document.addEventListener('DOMContentLoaded', () => {
 7. Vence o jogador com mais pontos.
 
 CORES DAS CARTAS:
-• Vermelho: Perguntas
-• Verde: Respostas
+• Vermelho: Perguntas (mostra "?")
+• Verde: Respostas (mostra "=")
 
 BOA SORTE!`);
     }
