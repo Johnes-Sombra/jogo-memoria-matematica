@@ -65,10 +65,10 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Criar cartas
         cardPairs.forEach((item, index) => {
-            // Carta com pergunta
+            // Carta com pergunta (vermelho)
             createCard('question', item.question, index);
             
-            // Carta com resposta
+            // Carta com resposta (verde)
             createCard('answer', item.answer, index + cardPairs.length);
         });
         
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Criar uma carta
     function createCard(type, content, id) {
         const card = document.createElement('div');
-        card.className = 'card';
+        card.className = `card ${type}`; // Adiciona classe específica para o tipo
         card.dataset.id = id;
         card.dataset.type = type;
         card.dataset.content = content;
@@ -144,17 +144,34 @@ document.addEventListener('DOMContentLoaded', () => {
     // Verificar se as cartas viradas formam um par
     function checkForMatch() {
         const [card1, card2] = flippedCards;
-        const content1 = card1.dataset.content;
-        const content2 = card2.dataset.content;
         
-        // Encontrar o par correspondente
-        const questionCard = card1.dataset.type === 'question' ? card1 : card2;
-        const answerCard = card1.dataset.type === 'answer' ? card1 : card2;
+        // Verificar se temos uma pergunta e uma resposta
+        const hasQuestion = card1.classList.contains('question') || card2.classList.contains('question');
+        const hasAnswer = card1.classList.contains('answer') || card2.classList.contains('answer');
+        
+        if (!hasQuestion || !hasAnswer) {
+            // Não é um par válido (duas perguntas ou duas respostas)
+            setTimeout(() => {
+                card1.classList.remove('flipped');
+                card2.classList.remove('flipped');
+                flippedCards = [];
+                switchPlayer();
+                messageElement.textContent = `Par inválido! Jogador ${currentPlayer}, é sua vez!`;
+            }, 1000);
+            return;
+        }
+        
+        // Encontrar qual é a pergunta e qual é a resposta
+        const questionCard = card1.classList.contains('question') ? card1 : card2;
+        const answerCard = card1.classList.contains('answer') ? card1 : card2;
+        
+        const questionContent = questionCard.dataset.content;
+        const answerContent = answerCard.dataset.content;
         
         // Verificar se é um par válido
-        const question = mathQuestions.find(q => q.question === questionCard.dataset.content);
+        const question = mathQuestions.find(q => q.question === questionContent);
         
-        if (question && question.answer === answerCard.dataset.content) {
+        if (question && question.answer === answerContent) {
             // Par encontrado!
             setTimeout(() => {
                 questionCard.classList.add('match');
@@ -230,10 +247,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 1. O jogo é para dois jogadores que se alternam.
 2. Cada jogador vira duas cartas por vez.
-3. Se as cartas formarem um par (pergunta e resposta correta), o jogador ganha um ponto e joga novamente.
-4. Se não formarem um par, as cartas são viradas de volta e é a vez do próximo jogador.
-5. O jogo termina quando todos os pares forem encontrados.
-6. Vence o jogador com mais pontos.
+3. Se as cartas formarem um par (pergunta vermelha e resposta verde correta), o jogador ganha um ponto e joga novamente.
+4. Se virar duas perguntas ou duas respostas, perde a vez.
+5. Se não formarem um par correto, as cartas são viradas de volta e é a vez do próximo jogador.
+6. O jogo termina quando todos os pares forem encontrados.
+7. Vence o jogador com mais pontos.
+
+CORES DAS CARTAS:
+• Vermelho: Perguntas
+• Verde: Respostas
 
 BOA SORTE!`);
     }
