@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Memória Matemática</title>
+    <link rel="stylesheet" href="/assets/css/style.css"
+</head>
+<body>
+    <div class="container">
+        <h1>Jogo da Memória Matemática</h1>
+        
+        <div class="game-info">
+            <div class="player active" id="player1">
+                <h2>Jogador 1</h2>
+                <div class="player-score">0</div>
+            </div>
+            <div class="player" id="player2">
+                <h2>Jogador 2</h2>
+                <div class="player-score">0</div>
+            </div>
+        </div>
+        
+        <div class="game-board" id="gameBoard">
+            <!-- Cards serão gerados via JavaScript -->
+        </div>
+        
+        <div class="message" id="message">Jogador 1, é sua vez!</div>
+        
+        <div class="controls">
+            <button id="restartBtn">Reiniciar Jogo</button>
+            <button id="rulesBtn">Regras</button>
+        </div>
+    </div>
+
+    <script src="/assets/javascript/script.js"></script>
+</body>
+</html>
