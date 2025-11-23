@@ -99,23 +99,21 @@ h1 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.card-front {
-    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
-    color: #333;
-}
-
-/* Cartas de pergunta (vermelho claro) */
-.card.question .card-back {
+/* Cartas de pergunta (vermelho claro) - PARTE DA FRENTE */
+.card.question .card-front {
     background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
     color: white;
-    transform: rotateY(180deg);
-    padding: 10px;
 }
 
-/* Cartas de resposta (verde) */
-.card.answer .card-back {
+/* Cartas de resposta (verde) - PARTE DA FRENTE */
+.card.answer .card-front {
     background: linear-gradient(135deg, #51cf66 0%, #69db7c 100%);
     color: white;
+}
+
+.card-back {
+    background: white;
+    color: #333;
     transform: rotateY(180deg);
     padding: 10px;
 }
@@ -157,6 +155,36 @@ button:hover {
     animation: pulse 1s;
 }
 
+.legend {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.legend-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+}
+
+.legend-question {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+}
+
+.legend-answer {
+    background: linear-gradient(135deg, #51cf66 0%, #69db7c 100%);
+}
+
 @keyframes pulse {
     0% { transform: scale(1); }
     50% { transform: scale(1.05); }
@@ -191,5 +219,10 @@ button:hover {
     .game-info {
         flex-direction: column;
         gap: 15px;
+    }
+    
+    .legend {
+        flex-direction: column;
+        gap: 10px;
     }
 }
