@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const cardFront = document.createElement('div');
         cardFront.className = 'card-front';
         // Mostra o conteúdo diretamente na frente (visível)
-        cardFront.textContent = type === 'question' ? '?' : '=';
+        cardFront.textContent = type === 'question' ? '?' : 'R';
         
         const cardBack = document.createElement('div');
         cardBack.className = 'card-back';
@@ -256,7 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 CORES DAS CARTAS:
 • Vermelho: Perguntas (mostra "?")
-• Verde: Respostas (mostra "=")
+• Verde: Respostas (mostra "R")
 
 BOA SORTE!`);
     }
