@@ -14,99 +14,128 @@ O Jogo da Memória de Matemática é uma aplicação web educativa e interativa 
 
 ### Funcionalidades do Jogo
 
-- Dois Jogadores: Sistema de turnos com nomes personalizáveis
-- Cartas Coloridas: Distinção visual entre perguntas (vermelho) e respostas (verde)
+- **Dois Jogadores:** Sistema de turnos com nomes personalizáveis
+- **Cartas Coloridas:** Distinção visual entre perguntas (vermelho) e respostas (verde)
 
-### Operações Diversas:
+- **Operações Diversas:**
 
-- Adição, subtração, multiplicação e divisão
-- Potenciação e raiz quadrada
-- Frações simples
+    - Adição, subtração, multiplicação e divisão
+    - Potenciação e raiz quadrada
+    - Frações simples
 
-Sistema de Pontuação: Contagem automática de acertos
+- **Sistema de Pontuação:** Contagem automática de acertos
+- **Histórico Completo:** Tabela com os últimos 10 jogos
+- **Interface Responsiva:** Adaptável a diferentes dispositivos
 
-Histórico Completo: Tabela com os últimos 10 jogos
+### Placar e Estatísticas
 
-Interface Responsiva: Adaptável a diferentes dispositivos
+- Registro detalhado de cada partida
+- Data, hora e pontuação dos jogadores
+- Identificação visual de vitórias, derrotas e empates
+- Limite de 10 jogos no histórico (FIFO-First In, First Out)
 
-📊 Placar e Estatísticas
-Registro detalhado de cada partida
+### Tecnologias Utilizadas
 
-Data, hora e pontuação dos jogadores
+- HTML5: Estrutura semântica e acessível
+- CSS3: Design moderno com gradientes e animações
+- JavaScript: Lógica do jogo e interatividade
+- Design Responsivo: Compatível com desktop, tablet e mobile
 
-Identificação visual de vitórias, derrotas e empates
+### Público-Alvo
 
-Limite de 10 jogos no histórico (FIFO - First In, First Out)
+**Educadores**
 
-Tecnologias Utilizadas
-HTML5: Estrutura semântica e acessível
+- Professores de matemática do ensino fundamental
+- Monitores de reforço escolar
+- Pais que desejam auxiliar no aprendizado dos filhos
 
-CSS3: Design moderno com gradientes e animações
+**Estudantes**
 
-JavaScript: Lógica do jogo e interatividade
+- Alunos do 4º ao 7º ano do ensino fundamental
+- Crianças em processo de alfabetização matemática
+- Estudantes com dificuldades em operações básicas
 
-Design Responsivo: Compatível com desktop, tablet e mobile
+### Benefícios Educacionais
 
-Público-Alvo
-👨‍🏫 Educadores
-Professores de matemática do ensino fundamental
+**Desenvolvimento Cognitivo**
 
-Monitores de reforço escolar
+- **Memória:** Exercita a memória de curto prazo
+- **Raciocínio:** Desenvolve pensamento lógico-matemático
+- **Concentração:** Melhora a capacidade de foco
+- **Estratégia:** Incentiva o planejamento de jogadas
 
-Pais que desejam auxiliar no aprendizado dos filhos
+**Aprendizado de Matemática**
 
-👨‍🎓 Estudantes
-Alunos do 4º ao 7º ano do ensino fundamental
+- **Operações Básicas:** Prática constante de cálculos
+- **Reconhecimento de Padrões:** Identificação de relações matemáticas
+- **Velocidade de Cálculo:** Agilidade na resolução de problemas
+- **Confiança:** Fortalecimento da autoestima matemática
 
-Crianças em processo de alfabetização matemática
+### Como Utilizar em Sala de Aula
 
-Estudantes com dificuldades em operações básicas
+**Atividades Sugeridas**
 
-Benefícios Educacionais
-🧩 Desenvolvimento Cognitivo
-Memória: Exercita a memória de curto prazo
+1. **Competição em Duplas:** Dividir a turma em pares para torneios
+2. **Estações de Aprendizado:** Rodízio entre diferentes atividades matemáticas
+3. **Reforço Personalizado:** Foco em operações específicas conforme necessidade
+4. **Avaliação Formativa:** Observação do desempenho durante o jogo
 
-Raciocínio: Desenvolve pensamento lógico-matemático
+**Sugestões de Dinâmica**
 
-Concentração: Melhora a capacidade de foco
+- **Tempo Limitado:** Partidas rápidas de 5-10 minutos
+- **Rodadas Temáticas:** Foco em uma operação específica por aula
+- **Desafios Progressivos:** Aumentar a dificuldade gradualmente
+- **Discussão Pós-Jogo:** Análise coletiva das estratégias utilizadas
 
-Estratégia: Incentiva o planejamento de jogadas
+### Personalização para Diferentes Níveis
 
-📚 Aprendizado de Matemática
-Operações Básicas: Prática constante de cálculos
+**Adaptações Possíveis**
 
-Reconhecimento de Padrões: Identificação de relações matemáticas
+- **Iniciante:** Operações simples (adição e subtração até 20)
+- **Intermediário:** Incluir multiplicação e divisão básica
+- **Avançado:** Adicionar frações, potências e raízes quadradas
+- **Desafio:** Criar cartas com problemas matemáticos contextuais
 
-Velocidade de Cálculo: Agilidade na resolução de problemas
+## Estrutura do Projeto
 
-Confiança: Fortalecimento da autoestima matemática
+> index.html - Estrutura principal em HTML
+> style.css - Estilos e design
+> script.js - Lógica do projeto
+> README.md - Está documentação
 
-Como Utilizar em Sala de Aula
-🏫 Atividades Sugeridas
-Competição em Duplas: Dividir a turma em pares para torneios
+## Como Executar
 
-Estações de Aprendizado: Rodízio entre diferentes atividades matemáticas
+1. Download: Baixe todos os arquivos do projeto
+2. Abrir: Execute o arquivo index.html em um navegador
+3. Alternativamente pode acessar diretamente [LINK PARA A PÁGINA](https://johnes-sombra.github.io/jogo-memoria-matematica/)
+4. Configurar: Insira os nomes dos jogadores
+5. Jogar: Clique em "Iniciar Jogo" e divirta-se!
 
-Reforço Personalizado: Foco em operações específicas conforme necessidade
+## Contribuições para a Educação
 
-Avaliação Formativa: Observação do desempenho durante o jogo
+**Alinhamento com BNCC**
 
-⏰ Sugestões de Dinâmica
-Tempo Limitado: Partidas rápidas de 5-10 minutos
+- Desenvolve competências da área de Matemática
+- Trabalha habilidades socioemocionais
+- Promove trabalho em equipe e respeito às regras
 
-Rodadas Temáticas: Foco em uma operação específica por aula
+**Metodologias Ativas**
 
-Desafios Progressivos: Aumentar a dificuldade gradualmente
+- Aprendizado baseado em jogos (Game-Based Learning)
+- Educação lúdica e participativa
+- Feedback imediato do progresso
 
-Discussão Pós-Jogo: Análise coletiva das estratégias utilizadas
+**Licença e Uso**
 
-Personalização para Diferentes Níveis
-🌟 Adaptações Possíveis
-Iniciante: Operações simples (adição e subtração até 20)
+Este projeto é livre para uso educacional e pode ser:
 
-Intermediário: Incluir multiplicação e divisão básica
+- Baixado e utilizado em escolas
+- Adaptado para necessidades específicas
+- Incorporado em planos de aula
+- Modificado para diferentes faixas etárias
 
-Avançado: Adicionar frações, potências e raízes quadradas
+**Desenvolvido para tornar o aprendizado de matemática mais divertido e eficaz!**
 
-Desafio: Criar cartas com problemas matemáticos contextuais
+*"A matemática é a linguagem com a qual Deus escreveu o universo." - Galileo Galilei*
 
+KTN Tecnologia @ 2025
