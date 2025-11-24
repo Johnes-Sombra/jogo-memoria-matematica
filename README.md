@@ -1,9 +1,5 @@
 # Jogo da Memória Matemática
 
-**Descrição do Projeto**
-
-O Jogo da Memória de Matemática é uma aplicação web educativa e interativa desenvolvida para auxiliar no aprendizado de operações matemáticas básicas através de um jogo da memória divertido e competitivo. O projeto combina conceitos de matemática com mecânicas de jogo, tornando o aprendizado mais engajador e dinâmico.
-
 ## Características Principais
 
 ### Objetivo Educacional
